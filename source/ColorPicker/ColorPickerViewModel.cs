@@ -23,6 +23,13 @@ namespace Spillman.Xamarin.Forms.ColorPicker
             set => SetProperty(ref _isAlphaEnabled, value);
         }
 
+        private bool _isCustomInputEnabled = true;
+        public bool IsCustomInputEnabled
+        {
+            get => _isCustomInputEnabled;
+            set => SetProperty(ref _isCustomInputEnabled, value);
+        }
+
         public Color Color
         {
             get => SKColor.ToFormsColor();

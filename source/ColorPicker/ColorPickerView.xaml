@@ -74,7 +74,7 @@
             </AbsoluteLayout>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" IsVisible="{Binding IsCustomInputEnabled}">
             <!-- # Label -->
             <Label VerticalOptions="Center"
                    VerticalTextAlignment="Center"
