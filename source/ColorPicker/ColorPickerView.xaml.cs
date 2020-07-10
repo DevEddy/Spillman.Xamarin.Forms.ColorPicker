@@ -195,6 +195,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                 if (e.ActionType == SKTouchAction.Released || e.ActionType == SKTouchAction.Cancelled)
                 {
                     ViewModel.UpdateHex();
+                    ViewModel.RaiseColorChangedByUserEvent(this, new EventArgs());
                 }
 
                 return;
@@ -306,6 +307,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                 if (e.ActionType == SKTouchAction.Released || e.ActionType == SKTouchAction.Cancelled)
                 {
                     ViewModel.UpdateHex();
+                    ViewModel.RaiseColorChangedByUserEvent(this, new EventArgs());
                 }
 
                 return;

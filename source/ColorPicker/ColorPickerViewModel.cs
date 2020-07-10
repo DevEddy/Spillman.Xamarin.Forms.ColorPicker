@@ -12,6 +12,9 @@ namespace Spillman.Xamarin.Forms.ColorPicker
     public class ColorPickerViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event System.EventHandler ColorChangedByUser;
+
+        public void RaiseColorChangedByUserEvent(object sender, System.EventArgs e) => ColorChangedByUser?.Invoke(sender, e);
 
         private bool _isAlphaEnabled = true;
         public bool IsAlphaEnabled
