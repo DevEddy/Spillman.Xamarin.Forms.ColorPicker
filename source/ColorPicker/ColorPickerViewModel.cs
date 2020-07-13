@@ -42,6 +42,8 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                 H = h;
                 S = s;
                 V = v;
+
+                UpdateHex();
             }
         }
 
