@@ -98,11 +98,13 @@ namespace Spillman.Xamarin.Forms.ColorPicker
         private void OnHexUnfocused(object sender, FocusEventArgs e)
         {
             ViewModel.Hex = ViewModel.Color.ToRgbHex();
+            ViewModel.RaiseColorChangedByUserEvent(this, new EventArgs());
         }
 
         private void OnAlphaEntryUnfocused(object sender, FocusEventArgs e)
         {
             AlphaText = ViewModel.A.ToString();
+            ViewModel.RaiseColorChangedByUserEvent(this, new EventArgs());
         }
 
         private void OnSaturationValueGradientsPaintSurface(object sender, SKPaintSurfaceEventArgs e)
