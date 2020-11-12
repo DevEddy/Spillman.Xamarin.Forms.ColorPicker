@@ -400,7 +400,8 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                 x = width; 
             } 
  
-            ViewModel.A = (byte) Math.Round(x / width * byte.MaxValue); 
+            ViewModel.A = (byte) Math.Round(x / width * byte.MaxValue);
+            ViewModel.RaiseColorChangedByUserEvent(this, new EventArgs());
         }
     }
 }
