@@ -1,6 +1,6 @@
-﻿using System;
-using SkiaSharp;
+﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
 using Xamarin.Forms.Xaml;
 
 namespace Spillman.Xamarin.Forms.ColorPicker
@@ -27,7 +27,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
 
             canvas.Clear(SKColors.White);
 
-            var size = (int) Math.Round(8 * pixelsPerXamarinUnit);
+            var size = (int)Math.Round(8 * pixelsPerXamarinUnit);
             using (var paint = new SKPaint { Color = new SKColor(191, 191, 191) })
             {
                 var xOffset = 0;
@@ -41,7 +41,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                     }
                 }
             }
-            
+
             canvas.Flush();
         }
     }

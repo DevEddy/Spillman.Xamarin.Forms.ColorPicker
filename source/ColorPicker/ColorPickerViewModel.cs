@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using SkiaSharp;
+using SkiaSharp.Views.Forms;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
-using SkiaSharp;
-using SkiaSharp.Views.Forms;
 using Xamarin.Forms;
 
 // ReSharper disable CompareOfFloatsByEqualityOperator

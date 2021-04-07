@@ -1,5 +1,5 @@
-﻿using System;
-using SkiaSharp;
+﻿using SkiaSharp;
+using System;
 using Color = Xamarin.Forms.Color;
 
 // ReSharper disable InconsistentNaming
@@ -25,10 +25,10 @@ namespace Spillman.Xamarin.Forms.ColorPicker
             var b = v;
 
             // HSL from 0 to 1
-            if (Math.Abs (s) > 0.001f)
+            if (Math.Abs(s) > 0.001f)
             {
                 h = h * 6f;
-                if (Math.Abs (h - 6f) < 0.001f)
+                if (Math.Abs(h - 6f) < 0.001f)
                     h = 0f; // H must be < 1
 
                 var hInt = (int)h;
@@ -79,16 +79,16 @@ namespace Spillman.Xamarin.Forms.ColorPicker
             g = g * 255f;
             b = b * 255f;
 
-            return new SKColor ((byte)Math.Round(r), (byte)Math.Round(g), (byte)Math.Round(b), a);
+            return new SKColor((byte)Math.Round(r), (byte)Math.Round(g), (byte)Math.Round(b), a);
         }
 
         internal static SKColor ToSKColor(this Color color)
         {
             return new SKColor(
-                (byte) Math.Round(color.R * byte.MaxValue), 
-                (byte) Math.Round(color.G * byte.MaxValue), 
-                (byte) Math.Round(color.B * byte.MaxValue), 
-                (byte) Math.Round(color.A * byte.MaxValue)
+                (byte)Math.Round(color.R * byte.MaxValue),
+                (byte)Math.Round(color.G * byte.MaxValue),
+                (byte)Math.Round(color.B * byte.MaxValue),
+                (byte)Math.Round(color.A * byte.MaxValue)
             );
         }
     }

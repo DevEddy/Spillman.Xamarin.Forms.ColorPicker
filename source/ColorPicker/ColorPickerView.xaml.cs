@@ -1,8 +1,7 @@
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using System;
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -51,7 +50,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                     {
                         ViewModel.A = alpha;
                     }
-                    
+
                     _alphaText = value;
                     OnPropertyChanged();
                 }
@@ -71,27 +70,27 @@ namespace Spillman.Xamarin.Forms.ColorPicker
             }
         }
 
-        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e) 
-        { 
-            switch (e.PropertyName) 
-            { 
-                case nameof(ColorPickerViewModel.H): 
-                    SelectedHueRainbowCanvasView.InvalidateSurface(); 
-                    SelectedSaturationValueCanvasView.InvalidateSurface(); 
-                    AlphaCanvasView.InvalidateSurface(); 
-                    break; 
-                case nameof(ColorPickerViewModel.S): 
-                case nameof(ColorPickerViewModel.V): 
-                    SelectedSaturationValueCanvasView.InvalidateSurface(); 
-                    AlphaCanvasView.InvalidateSurface(); 
-                    break; 
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(ColorPickerViewModel.H):
+                    SelectedHueRainbowCanvasView.InvalidateSurface();
+                    SelectedSaturationValueCanvasView.InvalidateSurface();
+                    AlphaCanvasView.InvalidateSurface();
+                    break;
+                case nameof(ColorPickerViewModel.S):
+                case nameof(ColorPickerViewModel.V):
+                    SelectedSaturationValueCanvasView.InvalidateSurface();
+                    AlphaCanvasView.InvalidateSurface();
+                    break;
                 case nameof(ColorPickerViewModel.A):
                     if (!_changingAlphaText)
                     {
                         AlphaText = ViewModel.A.ToString();
                     }
                     AlphaCanvasView.InvalidateSurface();
-                    break; 
+                    break;
             }
         }
 
@@ -121,7 +120,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                     saturationPaint.Shader = SKShader.CreateLinearGradient(
                         new SKPoint(0, 0),
                         new SKPoint(info.Width, 0),
-                        new[] {SKColors.White, SKColors.Transparent},
+                        new[] { SKColors.White, SKColors.Transparent },
                         null,
                         SKShaderTileMode.Clamp
                     )
@@ -130,14 +129,14 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                     canvas.DrawRect(0, 0, info.Width, info.Height, saturationPaint);
                 }
             }
-            
+
             using (var valuePaint = new SKPaint())
             {
                 using (
                     valuePaint.Shader = SKShader.CreateLinearGradient(
                         new SKPoint(0, 0),
                         new SKPoint(0, info.Height),
-                        new[] {SKColors.Empty, SKColors.Black},
+                        new[] { SKColors.Empty, SKColors.Black },
                         null,
                         SKShaderTileMode.Clamp
                     )
@@ -146,7 +145,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                     canvas.DrawRect(0, 0, info.Width, info.Height, valuePaint);
                 }
             }
-            
+
             canvas.Flush();
         }
 
@@ -162,14 +161,14 @@ namespace Spillman.Xamarin.Forms.ColorPicker
             canvas.Clear(SKColors.Transparent);
 
             var center = new SKPoint(
-                ViewModel.S / 100 * info.Width, 
+                ViewModel.S / 100 * info.Width,
                 info.Height - ViewModel.V / 100 * info.Height
             );
 
             var pixelsPerXamarinUnit = info.Width / SelectedSaturationValueCanvasView.Width;
 
-            var innerRadius = (float) (16 * pixelsPerXamarinUnit);
-            var strokeWidth = (float) (1.5f * pixelsPerXamarinUnit);
+            var innerRadius = (float)(16 * pixelsPerXamarinUnit);
+            var strokeWidth = (float)(1.5f * pixelsPerXamarinUnit);
 
             using (var paint = new SKPaint { IsAntialias = true, StrokeWidth = strokeWidth })
             {
@@ -252,7 +251,7 @@ namespace Spillman.Xamarin.Forms.ColorPicker
                     new SKPoint(0, 0),
                     new SKPoint(info.Width, 0),
                     colors,
-                    null, 
+                    null,
                     SKShaderTileMode.Clamp
                 );
 
@@ -274,13 +273,13 @@ namespace Spillman.Xamarin.Forms.ColorPicker
             canvas.Clear(SKColors.Transparent);
 
             var center = new SKPoint(
-                ViewModel.H / 360 * info.Width, 
+                ViewModel.H / 360 * info.Width,
                 info.Height / 2f
             );
 
             var pixelsPerXamarinUnit = info.Width / SelectedHueRainbowCanvasView.Width;
 
-            var strokeWidth = (float) (1.5 * pixelsPerXamarinUnit);
+            var strokeWidth = (float)(1.5 * pixelsPerXamarinUnit);
             var innerRadius = info.Height / 2f - 2 * strokeWidth;
 
             using (var paint = new SKPaint { IsAntialias = true, StrokeWidth = strokeWidth })
@@ -329,78 +328,78 @@ namespace Spillman.Xamarin.Forms.ColorPicker
             ViewModel.H = x / width * 360;
         }
 
-        private SKSizeI _alphaPixelSize; 
-        private void OnAlphaPaintSurface(object sender, SKPaintSurfaceEventArgs e) 
-        { 
-            var info = e.Info; 
-            var surface = e.Surface; 
-            var canvas = surface.Canvas; 
- 
-            _alphaPixelSize = info.Size; 
- 
-            canvas.Clear(SKColors.Transparent); 
- 
-            using (var gradientPaint = new SKPaint { Style = SKPaintStyle.Fill }) 
-            { 
-                gradientPaint.Shader = SKShader.CreateLinearGradient( 
-                    new SKPoint(0, 0), 
-                    new SKPoint(info.Width, 0), 
-                    new [] 
-                    { 
-                        SKColor.FromHsv(ViewModel.H, ViewModel.S, ViewModel.V, 0), 
-                        SKColor.FromHsv(ViewModel.H, ViewModel.S, ViewModel.V) 
-                    }, 
-                    null,  
-                    SKShaderTileMode.Clamp 
-                ); 
- 
-                canvas.DrawRect(0, 0, info.Width, info.Height, gradientPaint); 
-            } 
- 
-            var center = new SKPoint( 
-                (float) ViewModel.A / byte.MaxValue * info.Width,  
-                info.Height / 2f 
-            ); 
- 
-            var pixelsPerXamarinUnit = info.Width / AlphaCanvasView.Width; 
- 
-            var strokeWidth = (float) (1.5 * pixelsPerXamarinUnit); 
-            var innerRadius = info.Height / 2f - 2 * strokeWidth; 
- 
-            using (var circlePaint = new SKPaint { IsAntialias = true, StrokeWidth = strokeWidth }) 
+        private SKSizeI _alphaPixelSize;
+        private void OnAlphaPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+        {
+            var info = e.Info;
+            var surface = e.Surface;
+            var canvas = surface.Canvas;
+
+            _alphaPixelSize = info.Size;
+
+            canvas.Clear(SKColors.Transparent);
+
+            using (var gradientPaint = new SKPaint { Style = SKPaintStyle.Fill })
             {
-                circlePaint.Style = SKPaintStyle.Stroke; 
-                circlePaint.Color = SKColors.White; 
-                canvas.DrawCircle(center, innerRadius, circlePaint); 
- 
-                circlePaint.Color = SKColors.Black; 
-                canvas.DrawCircle(center, innerRadius + strokeWidth, circlePaint); 
-            } 
- 
-            canvas.Flush(); 
-        } 
- 
-        private void OnAlphaTouch(object sender, SKTouchEventArgs e) 
-        { 
-            e.Handled = true; 
- 
-            if (!e.InContact) 
-            { 
-                return; 
-            } 
- 
-            var x = e.Location.X; 
-            var width = _alphaPixelSize.Width; 
-            if (x < 0) 
-            { 
-                x = 0; 
-            } 
-            else if (x > width) 
-            { 
-                x = width; 
-            } 
- 
-            ViewModel.A = (byte) Math.Round(x / width * byte.MaxValue);
+                gradientPaint.Shader = SKShader.CreateLinearGradient(
+                    new SKPoint(0, 0),
+                    new SKPoint(info.Width, 0),
+                    new[]
+                    {
+                        SKColor.FromHsv(ViewModel.H, ViewModel.S, ViewModel.V, 0),
+                        SKColor.FromHsv(ViewModel.H, ViewModel.S, ViewModel.V)
+                    },
+                    null,
+                    SKShaderTileMode.Clamp
+                );
+
+                canvas.DrawRect(0, 0, info.Width, info.Height, gradientPaint);
+            }
+
+            var center = new SKPoint(
+                (float)ViewModel.A / byte.MaxValue * info.Width,
+                info.Height / 2f
+            );
+
+            var pixelsPerXamarinUnit = info.Width / AlphaCanvasView.Width;
+
+            var strokeWidth = (float)(1.5 * pixelsPerXamarinUnit);
+            var innerRadius = info.Height / 2f - 2 * strokeWidth;
+
+            using (var circlePaint = new SKPaint { IsAntialias = true, StrokeWidth = strokeWidth })
+            {
+                circlePaint.Style = SKPaintStyle.Stroke;
+                circlePaint.Color = SKColors.White;
+                canvas.DrawCircle(center, innerRadius, circlePaint);
+
+                circlePaint.Color = SKColors.Black;
+                canvas.DrawCircle(center, innerRadius + strokeWidth, circlePaint);
+            }
+
+            canvas.Flush();
+        }
+
+        private void OnAlphaTouch(object sender, SKTouchEventArgs e)
+        {
+            e.Handled = true;
+
+            if (!e.InContact)
+            {
+                return;
+            }
+
+            var x = e.Location.X;
+            var width = _alphaPixelSize.Width;
+            if (x < 0)
+            {
+                x = 0;
+            }
+            else if (x > width)
+            {
+                x = width;
+            }
+
+            ViewModel.A = (byte)Math.Round(x / width * byte.MaxValue);
             ViewModel.RaiseColorChangedByUserEvent(this, new EventArgs());
         }
     }
